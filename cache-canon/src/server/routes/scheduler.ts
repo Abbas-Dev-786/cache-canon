@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { redis } from '@devvit/web/server';
-import { getJSON, setJSON } from '../helpers/redis-helpers';
+import { setJSON } from '../helpers/redis-helpers';
 import { keys } from '../helpers/keys';
 import type { HuntConfig } from '../../shared/types';
 

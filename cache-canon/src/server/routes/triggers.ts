@@ -1,5 +1,4 @@
 import { Hono } from 'hono';
-import { redis } from '@devvit/web/server';
 import { setJSON } from '../helpers/redis-helpers';
 import { keys } from '../helpers/keys';
 
