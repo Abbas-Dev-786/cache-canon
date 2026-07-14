@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+  "name": "cache-canon",
+  "post": {
+    "dir": "dist/client",
+    "entrypoints": {
+      "default": {
+        "entry": "splash.html"
+      },
+      "game": {
+        "entry": "game.html"
+      }
+    }
+  },
+  "server": {
+    "dir": "dist/server",
+    "entry": "index.cjs"
+  },
+  "permissions": {
+    "redis": true,
+    "realtime": true,
+    "reddit": {
+      "enable": true
+    }
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Create Cache Hunt",
+        "description": "Create a new Cache Hunt post",
+        "location": "subreddit",
+        "forUserType": "moderator",
+        "endpoint": "/internal/menu/create-hunt"
+      }
+    ]
+  },
+  "scheduler": {
+    "tasks": {
+      "daily-hunt-rotation": {
+        "endpoint": "/internal/scheduler/daily-hunt-rotation",
+        "cron": "0 0 * * *"
+      }
+    }
+  },
+  "triggers": {
+    "onAppInstall": "/internal/triggers/on-app-install"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  }
+}

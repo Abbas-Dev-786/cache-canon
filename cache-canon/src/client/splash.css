@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', 'Palatino Linotype', serif;
+}
+
+:root {
+  --bg-color: #e8d8b8;
+  --text-color: #4a3320;
+  --accent-color: #b22222;
+  --btn-bg: #8b5a2b;
+  --btn-hover: #a06b38;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #2b1d14;
+    --text-color: #e8d8b8;
+    --accent-color: #ff4500;
+    --btn-bg: #8b5a2b;
+    --btn-hover: #a06b38;
+  }
+}
+
+.app {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  gap: 20px;
+}
+
+.cannon-logo {
+  width: 220px;
+  height: auto;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 280px;
+}
+
+.title {
+  font-size: 1.8em;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
+}
+
+.description {
+  font-size: 0.95em;
+  text-align: center;
+  color: #8888aa;
+  line-height: 1.4;
+}
+
+.start-button {
+  background-color: var(--btn-bg);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 1.1em;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(217, 57, 0, 0.3);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.start-button:hover {
+  background-color: var(--btn-hover);
+  transform: translateY(-1px);
+}
+
+.start-button:active {
+  transform: translateY(1px);
+}
+
+.footer {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  font-size: 0.8em;
+  color: #666688;
+}
+
+.docs-link {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.docs-link:hover {
+  color: var(--accent-color);
+}
+
+.divider {
+  color: rgba(255, 255, 255, 0.15);
+}

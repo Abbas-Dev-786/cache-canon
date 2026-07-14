@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="game.css" />
+    <title>Cache Cannon</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Creator / Streak header bar -->
+      <div id="header-bar" class="header-bar">
+        <span id="creator-tag">Created by u/anonymous</span>
+        <div class="header-right">
+          <button id="btn-help" class="help-btn">?</button>
+          <button id="btn-daily-mode" class="daily-btn">Daily Hunt</button>
+          <span id="streak-tag" class="hidden">🔥 0 days</span>
+        </div>
+      </div>
+
+      <!-- Shots statistics bar -->
+      <div id="stats-bar" class="stats-bar">
+        <span id="shot-counter">🎯 0 shots · 💨 0 misses · 📦 0/3 found</span>
+      </div>
+
+      <!-- Creator Bar Controls -->
+      <div id="creator-bar" class="creator-bar hidden">
+        <div class="creator-header" style="justify-content: center;">
+          <span id="placement-counter" class="creator-counter" style="font-size: 1.1em;">Place Caches: 0/3</span>
+        </div>
+        <div class="creator-actions">
+          <button id="btn-ready-publish" class="action-btn inline" disabled>Ready to Publish</button>
+          <button id="btn-cancel-create" class="action-btn secondary inline">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Publish Modal -->
+      <div id="publish-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+          <h2 class="modal-title">Publish Hunt</h2>
+          <div class="modal-content" style="text-align: left; margin: 15px 0;">
+            <p style="margin-bottom: 8px;">Give your custom hunt a title:</p>
+            <input type="text" id="hunt-title" class="creator-input" placeholder="Enter Hunt Title" maxlength="60" style="width: 100%; box-sizing: border-box;" />
+            <div id="title-length-counter" style="text-align: right; font-size: 0.8em; color: #8888aa; margin-top: 4px;">0/60</div>
+          </div>
+          <div class="modal-actions" style="display: flex; gap: 8px; width: 100%;">
+            <button id="btn-publish" class="action-btn inline" style="flex: 1;" disabled>Publish</button>
+            <button id="btn-close-publish" class="action-btn secondary inline" style="flex: 1;">Back</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phaser game canvas container -->
+      <div id="game-container"></div>
+
+      <!-- Clue toast alerts -->
+      <div id="clue-toast" class="clue-toast"></div>
+
+      <!-- How to Play Modal -->
+      <div id="help-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+          <h2 class="modal-title">How to Play</h2>
+          <div class="modal-content" style="text-align: left; font-size: 0.95em; line-height: 1.5; margin: 15px 0;">
+            <p><strong>Goal:</strong> Find all 3 hidden treasure chests with the fewest shots!</p>
+            <br/>
+            <p><strong>Shooting:</strong> Tap any uncharted ocean tile to fire your cannon.</p>
+            <br/>
+            <p><strong>Clues:</strong> If you miss, a clue will appear telling you the distance to the nearest cache in tiles.</p>
+            <br/>
+            <p><strong>Example:</strong> "Distance: 1" means the cache is in one of the 8 surrounding adjacent tiles.</p>
+          </div>
+          <div class="modal-actions">
+            <button id="btn-close-help" class="action-btn">Got it!</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Victory Overlay Modal -->
+      <div id="victory-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+          <h2 class="modal-title">VICTORY!</h2>
+          <p class="modal-subtitle">All caches located successfully.</p>
+          
+          <div class="results-grid">
+            <div class="result-item">
+              <span class="result-val" id="res-shots">0</span>
+              <span class="result-label">Shots</span>
+            </div>
+            <div class="result-item">
+              <span class="result-val" id="res-misses">0</span>
+              <span class="result-label">Misses</span>
+            </div>
+            <div class="result-item">
+              <span class="result-val" id="res-time">0.0s</span>
+              <span class="result-label">Time</span>
+            </div>
+          </div>
+
+          <p id="res-rank" class="modal-rank-text"></p>
+          <p id="res-incentive" class="modal-incentive-text"></p>
+
+          <div class="modal-actions">
+            <button id="btn-share" class="action-btn">Share Results</button>
+            <button id="btn-leaderboard" class="action-btn secondary">Leaderboard</button>
+            <button id="btn-go-create" class="action-btn secondary">Create Your Own</button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Leaderboard Page -->
+      <div id="leaderboard-page" class="page-overlay hidden">
+        <h2 class="page-title">LEADERBOARD</h2>
+        <p class="page-subtitle">Top scores for today's hunt</p>
+        <div id="leaderboard-list" class="leaderboard-list">
+          <!-- Populated dynamically via JS -->
+        </div>
+        <button id="btn-close-lb" class="action-btn">Close</button>
+      </div>
+
+      <!-- Screen reader announcer -->
+      <div id="accessibility-announcer" class="sr-only" aria-live="polite"></div>
+    </div>
+    
+    <script type="module" src="game.ts"></script>
+  </body>
+</html>
