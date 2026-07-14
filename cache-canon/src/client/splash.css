@@ -31,9 +31,25 @@
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: var(--bg-color);
+  background-color: #1a3e62;
+  /* Keep dark blue background */
   color: var(--text-color);
   gap: 20px;
+}
+
+.parchment-container {
+  background-color: #e8e1cf;
+  /* Parchment color */
+  padding: 20px 24px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(0, 0, 0, 0.03);
+  /* Subtle texture and depth */
+  border: 1px solid #d4c8b2;
 }
 
 .cannon-logo {
@@ -43,9 +59,17 @@
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .content {
@@ -66,32 +90,51 @@
 }
 
 .description {
-  font-size: 0.95em;
+  font-size: 1.05em;
   text-align: center;
-  color: #8888aa;
-  line-height: 1.4;
+  color: #1a3e62;
+  /* Midnight Trench Blue for readability on parchment */
+  line-height: 1.5;
+  font-weight: 600;
+  /* font-semibold */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  /* drop-shadow-md equivalent */
 }
 
 .start-button {
-  background-color: var(--btn-bg);
-  color: #ffffff;
+  background-color: #d4af37;
+  /* Pirate's Booty Gold */
+  color: #1a3e62;
+  /* Midnight Trench Blue */
   border: none;
-  padding: 10px 24px;
-  font-size: 1.1em;
-  font-weight: bold;
-  border-radius: 20px;
+  border-bottom: 4px solid #8c7853;
+  /* Deep Bronze Doubloon */
+  padding: 14px 32px;
+  font-size: 1.15em;
+  font-weight: 800;
+  /* Bold */
+  text-transform: uppercase;
+  border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(217, 57, 0, 0.3);
-  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+  /* glowing box-shadow */
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .start-button:hover {
-  background-color: var(--btn-hover);
-  transform: translateY(-1px);
+  background-color: #e3be47;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.6);
 }
 
 .start-button:active {
-  transform: translateY(1px);
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+  margin-top: 2px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
 }
 
 .footer {
