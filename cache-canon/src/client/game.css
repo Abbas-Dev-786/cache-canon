@@ -1,28 +1,30 @@
 :root {
-  --bg-color: #e8d8b8;
-  --text-color: #4a3320;
-  --header-bg: #d1bfae;
-  --toast-bg: rgba(74, 51, 32, 0.95);
-  --toast-color: #f5deb3;
-  --card-bg: #f4e8c1;
-  --card-border: #8b5a2b;
-  --btn-bg: #8b5a2b;
-  --btn-color: #ffffff;
-  --accent-color: #b22222;
+  --bg-color: #e8e1cf; /* Aged Parchment */
+  --text-color: #1a3e62; /* Midnight Trench Blue */
+  --header-bg: #d4c8b2; /* Slightly darker parchment */
+  --toast-bg: rgba(26, 62, 98, 0.95);
+  --toast-color: #e8e1cf;
+  --card-bg: #f5f0e3;
+  --card-border: #d4af37; /* Pirate's Booty Gold */
+  --btn-bg: #d4af37;
+  --btn-color: #1a3e62;
+  --accent-color: #00a65f; /* Emerald Green */
+  --antique-border: 4px double #d4af37;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #2b1d14;
-    --text-color: #e8d8b8;
-    --header-bg: #1f140e;
-    --toast-bg: rgba(232, 216, 184, 0.95);
-    --toast-color: #2b1d14;
-    --card-bg: #38251a;
-    --card-border: #5c3a21;
-    --btn-bg: #8b5a2b;
+    --bg-color: #1a3e62; /* Midnight Trench Blue */
+    --text-color: #e8e1cf; /* Aged Parchment */
+    --header-bg: #14304d;
+    --toast-bg: rgba(232, 225, 207, 0.95);
+    --toast-color: #1a3e62;
+    --card-bg: #1e4873;
+    --card-border: #8c7853; /* Deep Bronze Doubloon */
+    --btn-bg: #8c7853;
     --btn-color: #ffffff;
-    --accent-color: #ff4500;
+    --accent-color: #00c8d9; /* Abyssal Turquoise */
+    --antique-border: 4px double #8c7853;
   }
 }
 
@@ -31,7 +33,7 @@ body {
   padding: 0;
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Georgia', 'Palatino Linotype', serif;
+  font-family: 'Inter', 'Helvetica', sans-serif;
   overflow: hidden;
 }
 
@@ -44,6 +46,9 @@ body {
   height: 100vh;
   margin: 0 auto;
   position: relative;
+  border-left: var(--antique-border);
+  border-right: var(--antique-border);
+  box-sizing: border-box;
 }
 
 .header-bar {
@@ -141,6 +146,7 @@ body {
 }
 
 .modal-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
   font-size: 1.6em;
   font-weight: 800;
   margin-bottom: 4px;
@@ -250,6 +256,7 @@ body {
 }
 
 .page-title {
+  font-family: 'Playfair Display', 'Georgia', serif;
   font-size: 2em;
   font-weight: 800;
   margin-bottom: 4px;

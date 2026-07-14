@@ -142,14 +142,14 @@ export class HuntScene extends Scene {
     // A-F column labels at the top
     for (let col = 0; col < BOARD.COLS; col++) {
       this.add.text(originX + col * step + tileW / 2, originY - 20, String.fromCharCode(65 + col), {
-        fontFamily: 'Georgia, serif', fontSize: '18px', color: '#4a3320', fontStyle: 'bold'
+        fontFamily: '"Playfair Display", Georgia, serif', fontSize: '18px', color: '#1a3e62', fontStyle: 'bold'
       }).setOrigin(0.5);
     }
 
     // 1-8 row labels on the left
     for (let row = 0; row < BOARD.ROWS; row++) {
       this.add.text(originX - 20, originY + row * step + tileW / 2, (row + 1).toString(), {
-        fontFamily: 'Georgia, serif', fontSize: '18px', color: '#4a3320', fontStyle: 'bold'
+        fontFamily: '"Playfair Display", Georgia, serif', fontSize: '18px', color: '#1a3e62', fontStyle: 'bold'
       }).setOrigin(0.5);
     }
 
@@ -238,7 +238,7 @@ export class HuntScene extends Scene {
 
     const tile = this.tiles[cellIndex];
     if (tile) {
-      tile.setTint(0xffaa00);
+      tile.setTint(0xd4af37); // Pirate's Booty Gold
       this.tweens.add({
         targets: tile,
         alpha: 0.5,
@@ -405,8 +405,8 @@ export class HuntScene extends Scene {
         // Spawn confetti from found caches
         this.foundCaches.forEach(cellIdx => {
           const { x: cx, y: cy } = this.cellToXY(cellIdx);
-          this.createExplosion(cx, cy, 0xffd700, reducedMotion ? 5 : 30);
-          this.createExplosion(cx, cy, 0x00ff88, reducedMotion ? 5 : 30);
+          this.createExplosion(cx, cy, 0xd4af37, reducedMotion ? 5 : 30); // Pirate's Booty Gold
+          this.createExplosion(cx, cy, 0x00a65f, reducedMotion ? 5 : 30); // Emerald Green
         });
 
         this.time.delayedCall(300, () => {
@@ -438,7 +438,7 @@ export class HuntScene extends Scene {
     }
 
     const reducedMotion = this.registry.get('prefersReducedMotion');
-    this.createExplosion(x, y, 0x00ff88, reducedMotion ? 5 : 25);
+    this.createExplosion(x, y, 0x00a65f, reducedMotion ? 5 : 25); // Emerald Green
     if (!reducedMotion) {
       this.cameras.main.shake(200, 0.008);
     }
@@ -449,7 +449,7 @@ export class HuntScene extends Scene {
 
     const { x, y } = this.cellToXY(cellIndex);
     const reducedMotion = this.registry.get('prefersReducedMotion');
-    this.createExplosion(x, y, 0x5a5a6a, reducedMotion ? 2 : 8);
+    this.createExplosion(x, y, 0x00c8d9, reducedMotion ? 2 : 8); // Abyssal Turquoise
     if (!reducedMotion) {
       this.cameras.main.shake(100, 0.002);
     }
@@ -473,10 +473,10 @@ export class HuntScene extends Scene {
     const { x, y } = this.cellToXY(cellIndex);
     
     const ringConfigs: Record<ClueData['signal'], { color: number, duration: number, maxScale: number }> = {
-      strong:  { color: 0x00ff88, duration: 600,  maxScale: 1.5 },
-      near:    { color: 0x44ddff, duration: 900,  maxScale: 2.0 },
-      weak:    { color: 0x8888ff, duration: 1200, maxScale: 2.5 },
-      distant: { color: 0x666688, duration: 1600, maxScale: 3.0 },
+      strong:  { color: 0x00a65f, duration: 600,  maxScale: 1.5 }, // Emerald Green
+      near:    { color: 0x00c8d9, duration: 900,  maxScale: 2.0 }, // Abyssal Turquoise
+      weak:    { color: 0x773399, duration: 1200, maxScale: 2.5 }, // Amethyst Purple
+      distant: { color: 0x1a3e62, duration: 1600, maxScale: 3.0 }, // Midnight Trench Blue
     };
     const ringConfig = ringConfigs[clue.signal] || ringConfigs['distant'];
 

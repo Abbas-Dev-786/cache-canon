@@ -2,24 +2,24 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Georgia', 'Palatino Linotype', serif;
+  font-family: 'Inter', 'Helvetica', sans-serif;
 }
 
 :root {
-  --bg-color: #e8d8b8;
-  --text-color: #4a3320;
-  --accent-color: #b22222;
-  --btn-bg: #8b5a2b;
-  --btn-hover: #a06b38;
+  --bg-color: #e8e1cf;
+  --text-color: #1a3e62;
+  --accent-color: #00a65f;
+  --btn-bg: #d4af37;
+  --btn-hover: #e3be47;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #2b1d14;
-    --text-color: #e8d8b8;
-    --accent-color: #ff4500;
-    --btn-bg: #8b5a2b;
-    --btn-hover: #a06b38;
+    --bg-color: #1a3e62;
+    --text-color: #e8e1cf;
+    --accent-color: #00c8d9;
+    --btn-bg: #8c7853;
+    --btn-hover: #9f8a65;
   }
 }
 
@@ -57,6 +57,7 @@
 }
 
 .title {
+  font-family: 'Playfair Display', 'Georgia', serif;
   font-size: 1.8em;
   font-weight: 800;
   text-align: center;

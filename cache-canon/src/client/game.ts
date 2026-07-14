@@ -117,10 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ? data.leaderboard.map((entry, i) => {
             const isMe = entry.userId === context.userId;
             const timeStr = formatTime(entry.elapsedMs / 1000);
+            const flair = i === 0 ? '☠️ ' : '🧭 ';
             return `
               <div class="leaderboard-row ${isMe ? 'is-me' : ''}">
                 <span class="rank">#${i + 1}</span>
-                <span class="username">${entry.username || 'Redditor'}</span>
+                <span class="username">${flair}${entry.username || 'Redditor'}</span>
                 <span class="score">${entry.shots}s / ${entry.misses}m / ${timeStr}</span>
               </div>
             `;
