@@ -4,7 +4,7 @@ import { ResultOverlay } from './scenes/ResultOverlay';
 import { EditorScene } from './scenes/EditorScene';
 import * as Phaser from 'phaser';
 import { AUTO, Game } from 'phaser';
-import { context, showLoginPrompt, connectRealtime, showShareSheet } from '@devvit/web/client';
+import { context, showLoginPrompt, connectRealtime, showShareSheet, showToast, navigateTo } from '@devvit/web/client';
 import type { LeaderboardEntry, ShotResult, HuntView } from '../shared/types';
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (err) {
         console.error(err);
         btnDailyMode.textContent = 'Daily Hunt';
-        alert("Today's Daily Hunt is not ready yet! Try again in a bit.");
+        showToast("Today's Daily Hunt is not ready yet! Try again in a bit.");
       }
     }
   });
@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
       announcer.textContent = 'Hunt published successfully!';
 
       if (postUrl) {
-        window.location.href = postUrl;
+        navigateTo(postUrl);
       } else {
         game.scene.start('HuntScene');
       }
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
       announcer.textContent = 'Failed to publish board.';
       btnPublish.disabled = false;
       btnPublish.textContent = 'Publish';
-      alert('Failed to publish board. Check title/placements and try again.');
+      showToast('Failed to publish board. Check title/placements and try again.');
     }
   });
 

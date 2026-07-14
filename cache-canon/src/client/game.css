@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
   --bg-color: #e8e1cf; /* Aged Parchment */
   --text-color: #1a3e62; /* Midnight Trench Blue */
@@ -9,7 +13,6 @@
   --btn-bg: #d4af37;
   --btn-color: #1a3e62;
   --accent-color: #00a65f; /* Emerald Green */
-  --antique-border: 4px double #d4af37;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,7 +27,6 @@
     --btn-bg: #8c7853;
     --btn-color: #ffffff;
     --accent-color: #00c8d9; /* Abyssal Turquoise */
-    --antique-border: 4px double #8c7853;
   }
 }
 
@@ -44,11 +46,10 @@ body {
   width: 100%;
   max-width: 390px;
   height: 100vh;
+  height: 100dvh;
   margin: 0 auto;
   position: relative;
-  border-left: var(--antique-border);
-  border-right: var(--antique-border);
-  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .header-bar {
@@ -60,6 +61,7 @@ body {
   background-color: var(--header-bg);
   font-size: 0.9em;
   font-weight: bold;
+  flex-shrink: 0;
 }
 
 .stats-bar {
@@ -70,6 +72,7 @@ body {
   padding: 8px 16px;
   font-size: 0.9em;
   background-color: rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -85,6 +88,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .clue-toast {
@@ -461,4 +465,54 @@ body {
   background-color: var(--accent-color);
   color: var(--btn-color);
   border-color: var(--accent-color);
+}
+
+/* Ensure Phaser canvas scales within container */
+#game-container canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Responsive: small screens */
+@media (max-width: 400px) {
+  .header-bar {
+    padding: 8px 12px;
+    font-size: 0.82em;
+  }
+
+  .stats-bar {
+    padding: 6px 12px;
+    font-size: 0.82em;
+  }
+
+  .header-right {
+    gap: 8px;
+  }
+
+  .modal-card {
+    width: 90%;
+    padding: 20px 16px;
+  }
+
+  .creator-bar {
+    padding: 10px 12px;
+  }
+}
+
+/* Responsive: very small screens */
+@media (max-width: 320px) {
+  .header-bar {
+    padding: 6px 8px;
+    font-size: 0.75em;
+  }
+
+  .stats-bar {
+    font-size: 0.75em;
+  }
+
+  .daily-btn {
+    padding: 3px 6px;
+    font-size: 0.7em;
+  }
 }

@@ -379,8 +379,6 @@ export class HuntScene extends Scene {
       }
     }
 
-    this.shots++;
-
     const publicRun = {
       shots: data.run.shots,
       misses: data.run.misses,
