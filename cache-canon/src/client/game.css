@@ -276,23 +276,11 @@ body {
 
 .leaderboard-list {
   flex: 1;
-  overflow-y: auto;
   margin-bottom: 20px;
   padding-right: 4px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.leaderboard-list::-webkit-scrollbar {
-  width: 6px;
-}
-.leaderboard-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-.leaderboard-list::-webkit-scrollbar-thumb {
-  background: var(--card-border);
-  border-radius: 3px;
 }
 
 .leaderboard-row {

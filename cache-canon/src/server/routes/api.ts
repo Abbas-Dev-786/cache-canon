@@ -11,13 +11,19 @@ import type {
 
 export const api = new Hono();
 
+function getLocalDate(tzOffsetMin?: number): string {
+  if (tzOffsetMin === undefined) return new Date().toISOString().slice(0, 10);
+  const localTime = Date.now() - (tzOffsetMin * 60000);
+  return new Date(localTime).toISOString().slice(0, 10);
+}
+
 // ============================================================
 // POST /api/fire-at-cell — the critical path
 // ============================================================
 api.post('/fire-at-cell', async (c) => {
   const { userId, postId: ctxPostId } = context;
-  const { postId, cellIndex, requestId } = await c.req.json<{
-    postId: string; cellIndex: number; requestId?: string;
+  const { postId, cellIndex, requestId, tzOffset } = await c.req.json<{
+    postId: string; cellIndex: number; requestId?: string; tzOffset?: number;
   }>();
 
   const activePostId = postId || ctxPostId;
@@ -26,7 +32,7 @@ api.post('/fire-at-cell', async (c) => {
   }
 
   // 1. Auth check — logged-out users can't fire
-  const actorId = userId || 'mock-user'; // fallback for playtesting if needed
+  const actorId = userId || context.loid || 'mock-user'; // fallback for playtesting if needed
 
   // 2. Validate cellIndex range
   if (cellIndex < 0 || cellIndex > 47 || !Number.isInteger(cellIndex)) {
@@ -45,6 +51,9 @@ api.post('/fire-at-cell', async (c) => {
   // If a completed run exists, and this is a new shot (not an idempotent retry of the final shot),
   // reset it so the player can start a new run.
   if (run && run.completedAt && (!requestId || run.lastRequestId !== requestId)) {
+    if (config.isDaily) {
+      return c.json(buildShotResultFromRun(run, cellIndex));
+    }
     run = null;
   }
 
@@ -126,7 +135,7 @@ api.post('/fire-at-cell', async (c) => {
 
     // Handle Daily Hunt streak calculation
     if (config.isDaily) {
-      await updateDailyStreak(actorId);
+      await updateDailyStreak(actorId, tzOffset);
     }
   }
 
@@ -175,7 +184,7 @@ api.get('/hunt-view', async (c) => {
     await setJSON(keys.huntConfig(activePostId), config);
   }
 
-  const actorId = userId || 'mock-user';
+  const actorId = userId || context.loid || 'mock-user';
 
   const stats = await redis.hGetAll(keys.huntStats(activePostId));
   const plays = parseInt(stats?.plays ?? '0');
@@ -346,7 +355,9 @@ api.post('/publish-hunt', async (c) => {
 });
 
 api.get('/daily-hunt', async (c) => {
-  const today = new Date().toISOString().slice(0, 10);
+  const tzParam = c.req.query('tzOffset');
+  const tzOffset = tzParam ? parseInt(tzParam, 10) : undefined;
+  const today = getLocalDate(tzOffset);
   let postId = await redis.get(keys.dailyPost(today));
 
   if (!postId) {
@@ -386,7 +397,7 @@ api.get('/daily-hunt', async (c) => {
   const completions = parseInt(stats?.completions ?? '0');
   const completionRate = plays > 0 ? Math.round((completions / plays) * 100) : 0;
 
-  const actorId = userId || 'mock-user';
+  const actorId = userId || context.loid || 'mock-user';
   const run = await getJSON<RunState>(keys.huntRun(postId, actorId)) ?? emptyRun(actorId);
 
   const topMembers = await redis.zRange(keys.huntLeaderboard(postId), 0, 9, { by: 'rank' });
@@ -400,22 +411,25 @@ api.get('/daily-hunt', async (c) => {
     run: toPublicRun(run),
     leaderboard,
     isDaily: true,
-    dailyDate: today,
+    dailyDate: config.dailyDate || getLocalDate(),
   });
 });
 
 api.get('/daily-streak', async (c) => {
   const { userId } = context;
-  const actorId = userId || 'mock-user';
+  const actorId = userId || context.loid || 'mock-user';
   const streak = await getJSON<DailyStreak>(keys.dailyStreak(actorId)) ?? {
     lastCompletedDate: '', currentStreak: 0, bestStreak: 0,
   };
   return c.json({ streak });
 });
 
-async function updateDailyStreak(userId: string): Promise<DailyStreak> {
-  const today = new Date().toISOString().slice(0, 10);
-  const yesterday = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
+async function updateDailyStreak(userId: string, tzOffsetMin?: number): Promise<DailyStreak> {
+  const today = getLocalDate(tzOffsetMin);
+  const yesterdayTime = tzOffsetMin !== undefined
+    ? Date.now() - (tzOffsetMin * 60000) - 86_400_000
+    : Date.now() - 86_400_000;
+  const yesterday = new Date(yesterdayTime).toISOString().slice(0, 10);
 
   const streakKey = keys.dailyStreak(userId);
   const streak = await getJSON<DailyStreak>(streakKey) ?? {

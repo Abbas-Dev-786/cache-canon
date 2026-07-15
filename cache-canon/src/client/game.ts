@@ -109,12 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const url = isDailyModeActive && dailyPostId 
         ? `/api/hunt-view?postId=${dailyPostId}` 
         : '/api/hunt-view';
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error();
       const data = await res.json() as HuntView;
 
       leaderboardList.innerHTML = data.leaderboard.length > 0 
-        ? data.leaderboard.map((entry, i) => {
+        ? data.leaderboard.slice(0, 5).map((entry, i) => {
             const isMe = entry.userId === context.userId;
             const timeStr = formatTime(entry.elapsedMs / 1000);
             const flair = i === 0 ? '☠️ ' : '🧭 ';
@@ -166,7 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
   updateStreakDisplay();
 
   function updateStreakDisplay() {
-    fetch('/api/daily-streak')
+    const tzOffset = new Date().getTimezoneOffset();
+    fetch(`/api/daily-streak?tzOffset=${tzOffset}`, { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((data) => {
         if (data.streak && data.streak.currentStreak > 0) {
@@ -239,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : '/api/hunt-view';
 
     // Generate replay incentive text
-    fetch(url)
+    fetch(url, { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((data: HuntView) => {
         currentHuntTitle = data.title;
@@ -294,7 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btnDailyMode.textContent = 'Loading...';
       
       try {
-        const res = await fetch('/api/daily-hunt');
+        const tzOffset = new Date().getTimezoneOffset();
+        const res = await fetch(`/api/daily-hunt?tzOffset=${tzOffset}`, { cache: 'no-store' });
         if (!res.ok) throw new Error('No daily hunt set');
         const data = await res.json() as HuntView;
 

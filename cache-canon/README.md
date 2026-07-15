@@ -1,30 +1,19 @@
-## Devvit Phaser Starter
+# Cache Canon
 
-A starter to build web applications on Reddit's developer platform
+Cache Canon is a Devvit game where players aim their cannons, shoot shells, and attempt to find 3 hidden caches. It is built using the Devvit web platform and Phaser.
 
-- [Devvit](https://developers.reddit.com/): A way to build and deploy immersive games on Reddit
-- [Vite](https://vite.dev/): For compiling the webView
-- [Phaser](https://phaser.io/): 2D game engine
-- [Hono](https://hono.dev/): For backend logic
-- [TypeScript](https://www.typescriptlang.org/): For type safety
+## How to Play
+- **Launch the Game:** Click the launch button from the Reddit post.
+- **Shoot:** Aim your cannon and fire to uncover hidden caches on the board.
+- **Compete:** The top 5 scores are recorded on the leaderboard.
 
-## Getting Started
+## Development & Deployment
 
-> Make sure you have Node 22 downloaded on your machine before running!
-
-1. Run `npm create devvit@latest --template=phaser`
-2. Go through the installation wizard. You will need to create a Reddit account and connect it to Reddit developers
-3. Copy the command on the success page into your terminal
-
-## Commands
-
+### Commands
 - `npm run dev`: Starts a development server where you can develop your application live on Reddit.
-- `npm run build`: Builds your client and server projects
-- `npm run deploy`: Uploads a new version of your app
-- `npm run launch`: Publishes your app for review
-- `npm run login`: Logs your CLI into Reddit
-- `npm run type-check`: Type checks, lints, and prettifies your app
+- `npm run build`: Builds your client and server projects.
+- `npm run launch`: Publishes your app for review.
 
-## Credits
-
-Thanks to the Phaser team for [providing a great template](https://github.com/phaserjs/template-vite-ts)!
+## Architecture
+- **Client**: Web view built with Phaser.
+- **Server**: Hono server handling gameplay logic and state synchronization with Devvit's Redis cache.

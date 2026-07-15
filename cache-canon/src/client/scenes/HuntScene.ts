@@ -52,7 +52,7 @@ export class HuntScene extends Scene {
     // Load initial board state from server
     try {
       const url = this.huntId ? `/api/hunt-view?postId=${this.huntId}` : '/api/hunt-view';
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const view = await res.json() as HuntView;
       this.isLoggedInUser = view.isLoggedIn !== false;
@@ -326,7 +326,8 @@ export class HuntScene extends Scene {
     const body = JSON.stringify({
       cellIndex,
       postId: this.huntId || undefined,
-      requestId
+      requestId,
+      tzOffset: new Date().getTimezoneOffset()
     });
 
     for (let attempt = 0; attempt <= retries; attempt++) {
